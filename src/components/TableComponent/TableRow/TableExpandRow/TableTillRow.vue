@@ -1,6 +1,6 @@
 <template>
   <div class="TableRow TableTillRow">
-    <input type="checkbox">
+    <input type="checkbox" :checked="isRowChecked" @change="onChange">
     <div></div>
     <div>{{ till.tillContent.startingTill }}</div>
     <div>{{ till.tillContent.openingTill }}</div>
@@ -12,10 +12,16 @@
 
 <script lang="ts" setup>
 import { TableTill } from "../../../../types.ts";
+import { useDaysStore } from "../../../../store";
+import { computed } from "vue";
 
-defineProps({
+const props = defineProps({
   till: Object as () => TableTill,
 });
+
+const store = useDaysStore();
+const isRowChecked = computed<boolean>(() => store.checkedRows.includes(props.till.tillRowId));
+const onChange = () => { store.checkRow(props.till?.tillRowId, !isRowChecked.value) };
 
 </script>
 
@@ -28,5 +34,4 @@ defineProps({
 .TableTillRow:last-child {
   border-bottom: 0;
 }
-
 </style>

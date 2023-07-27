@@ -4,6 +4,7 @@ export type TableDayData = {
 }
 
 export type TableTill = {
+  tillRowId: string;
   tillId: string;
   tillContent: TableTillContent | null;
 }

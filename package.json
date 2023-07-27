@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "pinia": "^2.1.6",
+    "uuid": "^9.0.0",
     "vue": "^3.2.47",
     "vue3-easy-data-table": "^1.5.47"
   },

@@ -4,7 +4,7 @@ import { RawDaysData } from "./types";
 import { TableDayData } from "../types";
 
 export const useDaysStore = defineStore('days', {
-  state: (): { days: RawDaysData } => ({
+  state: (): { days: RawDaysData, checkedRows: string[] } => ({
     days: JSON.parse(`
 {
   "2023-05-01": null,
@@ -4225,10 +4225,25 @@ export const useDaysStore = defineStore('days', {
   "2023-05-30": null,
   "2023-05-31": null
 }
-`)
+`),
+    checkedRows: [],
   }),
   getters: {
     daysTableData: (state): TableDayData[] => dataMapper(state.days),
+  },
+  actions: {
+    checkRow(tillRowId: string, isChecked: boolean) {
+      const isPresent = this.checkedRows.includes(tillRowId);
+      if (isChecked && !isPresent) {
+        this.checkedRows.push(tillRowId);
+      }
+      if (!isChecked && isPresent) {
+        this.checkedRows.splice(this.checkedRows.indexOf(tillRowId), 1);
+      }
+    },
+    unCheckAllRows() {
+      this.checkedRows = [];
+    }
   }
 });
 

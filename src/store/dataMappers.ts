@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import { TableDayData, TableTill } from "../types";
 import { RawDaysData, TillContentRawData, TillRawData } from "./types";
 
@@ -17,7 +18,8 @@ export function daysDataMapper(tillRawData: TillRawData) {
   if (tillRawData) {
     result = Object.entries(tillRawData)
       .reduce((acc: TableTill[], entry) => {
-        const tableRow = {
+        const tableRow: TableTill = {
+          tillRowId: uuid(),
           tillId: entry[0],
           tillContent: calculateTillContent(entry[1]),
         }
